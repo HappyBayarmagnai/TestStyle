@@ -273,3 +273,94 @@
         border-radius: 8px !important;
     }
 }
+
+
+
+/* Measure the form's available width */
+.theme-entry {
+    container-type: inline-size;
+    container-name: k2form;
+}
+
+/* Target only the selected preview table */
+.theme-entry [name="Table20"].Grid-Layout {
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box;
+}
+
+/* Allow its cells to fit their available space */
+.theme-entry [name="Table20"].Grid-Layout > [layouttype="cell"] {
+    min-width: 0 !important;
+    box-sizing: border-box;
+}
+
+/* Two groups across when the form is narrower than 900px */
+@container k2form (max-width: 900px) {
+    .theme-entry [name="Table20"].Grid-Layout {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        grid-template-rows: none !important;
+        grid-auto-rows: auto !important;
+        gap: 16px 12px !important;
+    }
+
+    .theme-entry [name="Table20"] > [col="1"] {
+        --position: 1;
+        --heading-row: 1;
+        --button-row: 2;
+    }
+
+    .theme-entry [name="Table20"] > [col="2"] {
+        --position: 2;
+        --heading-row: 1;
+        --button-row: 2;
+    }
+
+    .theme-entry [name="Table20"] > [col="3"] {
+        --position: 1;
+        --heading-row: 3;
+        --button-row: 4;
+    }
+
+    .theme-entry [name="Table20"] > [col="4"] {
+        --position: 2;
+        --heading-row: 3;
+        --button-row: 4;
+    }
+
+    .theme-entry [name="Table20"] > [row="1"] {
+        grid-column: var(--position) !important;
+        grid-row: var(--heading-row) !important;
+    }
+
+    .theme-entry [name="Table20"] > [row="2"] {
+        grid-column: var(--position) !important;
+        grid-row: var(--button-row) !important;
+    }
+}
+
+/* One group across on small forms */
+@container k2form (max-width: 500px) {
+    .theme-entry [name="Table20"].Grid-Layout {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    .theme-entry [name="Table20"] > [col] {
+        --position: 1;
+    }
+
+    .theme-entry [name="Table20"] > [col="2"] {
+        --heading-row: 3;
+        --button-row: 4;
+    }
+
+    .theme-entry [name="Table20"] > [col="3"] {
+        --heading-row: 5;
+        --button-row: 6;
+    }
+
+    .theme-entry [name="Table20"] > [col="4"] {
+        --heading-row: 7;
+        --button-row: 8;
+    }
+}
