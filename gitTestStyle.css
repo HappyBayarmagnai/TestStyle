@@ -167,7 +167,73 @@
     box-shadow: none;
 }
 
+
+
+
+
+
+
+
 .theme-entry {
     outline: 6px solid #ff1493 !important;
     outline-offset: -6px !important;
+}
+
+/* TEST: turn standard K2 buttons into icon buttons */
+.theme-entry .SourceCode-Forms-Controls-Web-Button {
+    position: relative !important;
+    box-sizing: border-box !important;
+
+    width: 48px !important;
+    min-width: 48px !important;
+    height: 48px !important;
+    min-height: 48px !important;
+
+    padding: 0 !important;
+    border-radius: 10px !important;
+
+    /* Visually hide text while retaining it in the HTML */
+    font-size: 0 !important;
+    line-height: 0 !important;
+    text-shadow: none !important;
+}
+
+/* Hide nested text too */
+.theme-entry .SourceCode-Forms-Controls-Web-Button span {
+    font-size: 0 !important;
+    line-height: 0 !important;
+}
+
+/* Draw a document icon using CSS */
+.theme-entry .SourceCode-Forms-Controls-Web-Button::before {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+
+    width: 20px !important;
+    height: 26px !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+
+    border: 2px solid currentColor;
+    border-radius: 3px;
+    pointer-events: none;
+
+    background:
+        linear-gradient(currentColor, currentColor)
+            4px 6px / 8px 2px no-repeat,
+        linear-gradient(currentColor, currentColor)
+            4px 12px / 8px 2px no-repeat,
+        linear-gradient(currentColor, currentColor)
+            4px 18px / 6px 2px no-repeat;
+}
+
+/* Keyboard focus */
+.theme-entry .SourceCode-Forms-Controls-Web-Button:focus-visible {
+    outline: 3px solid #f59e0b !important;
+    outline-offset: 3px !important;
 }
