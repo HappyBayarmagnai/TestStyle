@@ -1,0 +1,168 @@
+/*
+ * K2 SmartForms — menu buttons and action tiles
+ * Only controls with the names listed above are targeted.
+ */
+
+/* Shared appearance */
+.theme-entry [name^="k2Menu"],
+.theme-entry [name^="k2Action"] {
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif !important;
+    text-decoration: none !important;
+    text-shadow: none !important;
+    background-image: none !important;
+    cursor: pointer;
+}
+
+/* =========================================
+   TOP MENU BUTTONS
+   ========================================= */
+
+.theme-entry [name^="k2Menu"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 38px;
+    height: auto !important;
+    width: auto !important;
+
+    margin: 4px;
+    padding: 9px 16px !important;
+
+    background: #ffffff !important;
+    color: #334155 !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 5px !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.4 !important;
+    white-space: normal !important;
+}
+
+/* Highlight the All Correspondences menu button */
+.theme-entry [name="k2MenuAll"] {
+    background: #153e60 !important;
+    border-color: #153e60 !important;
+    color: #ffffff !important;
+}
+
+.theme-entry [name^="k2Menu"]:hover {
+    background: #e8eef5 !important;
+    border-color: #94a3b8 !important;
+    color: #153e60 !important;
+}
+
+/* =========================================
+   LARGE ACTION TILES
+   ========================================= */
+
+.theme-entry [name^="k2Action"] {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+
+    width: 190px !important;
+    max-width: 100% !important;
+    min-height: 180px;
+    height: auto !important;
+
+    margin: 8px;
+    padding: 24px 18px !important;
+
+    background: #153e60 !important;
+    color: #ffffff !important;
+    border: 2px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 6px !important;
+    box-shadow: 0 2px 5px rgba(15, 23, 42, 0.15);
+
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.5 !important;
+    text-align: center !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    vertical-align: top;
+}
+
+/* Decorative document icon — no image files needed */
+.theme-entry [name^="k2Action"]::before {
+    content: "";
+    display: block;
+    position: static;
+    flex-shrink: 0;
+
+    width: 32px;
+    height: 40px;
+    margin: 0;
+    box-sizing: border-box;
+
+    border: 2px solid currentColor;
+    border-radius: 3px;
+    opacity: 0.85;
+
+    background:
+        linear-gradient(currentColor, currentColor)
+            6px 10px / 16px 2px no-repeat,
+        linear-gradient(currentColor, currentColor)
+            6px 18px / 16px 2px no-repeat,
+        linear-gradient(currentColor, currentColor)
+            6px 26px / 12px 2px no-repeat;
+}
+
+/* Tile colors */
+.theme-entry [name="k2ActionReceipt"] {
+    background: #153e60 !important;
+}
+
+.theme-entry [name="k2ActionSend"] {
+    background: #87434c !important;
+}
+
+.theme-entry [name="k2ActionArchive"] {
+    background: #17647d !important;
+}
+
+/* Hover colors */
+.theme-entry [name="k2ActionReceipt"]:hover {
+    background: #1d527c !important;
+}
+
+.theme-entry [name="k2ActionSend"]:hover {
+    background: #9c505a !important;
+}
+
+.theme-entry [name="k2ActionArchive"]:hover {
+    background: #1c7895 !important;
+}
+
+/* Keep any nested button text consistent */
+.theme-entry [name^="k2Menu"] span,
+.theme-entry [name^="k2Action"] span {
+    color: inherit !important;
+    font: inherit !important;
+    white-space: inherit !important;
+}
+
+/* Visible keyboard focus */
+.theme-entry [name^="k2Menu"]:focus-visible,
+.theme-entry [name^="k2Action"]:focus-visible {
+    outline: 3px solid #f59e0b !important;
+    outline-offset: 3px;
+}
+
+/* Visual treatment for disabled controls.
+   Enable/disable the actual controls through K2 rules. */
+.theme-entry [name^="k2Menu"]:is(
+    .disabled, [disabled], [aria-disabled="true"]
+),
+.theme-entry [name^="k2Action"]:is(
+    .disabled, [disabled], [aria-disabled="true"]
+) {
+    opacity: 0.45 !important;
+    cursor: default;
+    box-shadow: none;
+}
