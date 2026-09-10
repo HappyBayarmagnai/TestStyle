@@ -166,3 +166,8 @@
     cursor: default;
     box-shadow: none;
 }
+
+.theme-entry {
+    outline: 6px solid #ff1493 !important;
+    outline-offset: -6px !important;
+}
