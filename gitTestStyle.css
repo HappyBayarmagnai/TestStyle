@@ -237,3 +237,39 @@
     outline: 3px solid #f59e0b !important;
     outline-offset: 3px !important;
 }
+
+
+/* Responsive icon buttons */
+.theme-entry .SourceCode-Forms-Controls-Web-Button {
+    box-sizing: border-box !important;
+
+    width: 48px !important;
+    min-width: 48px !important;
+    max-width: 100% !important;
+
+    height: 48px !important;
+    min-height: 48px !important;
+
+    margin: 6px !important;
+    vertical-align: middle;
+}
+
+/* Tablets and smaller windows */
+@media (max-width: 1024px) {
+    .theme-entry .SourceCode-Forms-Controls-Web-Button {
+        margin: 4px !important;
+    }
+}
+
+/* Phones */
+@media (max-width: 600px) {
+    .theme-entry .SourceCode-Forms-Controls-Web-Button {
+        width: 44px !important;
+        min-width: 44px !important;
+        height: 44px !important;
+        min-height: 44px !important;
+
+        margin: 4px !important;
+        border-radius: 8px !important;
+    }
+}
