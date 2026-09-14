@@ -1,0 +1,106 @@
+/* Kamoa form controls — K2 5.9.1 Style Profile SVG controls.
+   Link AFTER kamoa-layout.css in Style Profile > Developer.
+   Existing K2 inputs, validation and click rules remain in control.
+*/
+
+/* 1. Palette and icon size. Scope to K2's inspected SVG wrappers. */
+.theme-entry label.input-control.style-aware:is(.checkbox, .radio) {
+    --kc-choice-size: 22px;
+    --kc-choice-border: #505761;
+    --kc-choice-surface: #ffffff;
+    --kc-choice-selected: #b91d32;
+    --kc-choice-mark: #ffffff;
+    opacity: 1 !important;
+    min-height: 28px;
+}
+.theme-entry label.input-control.style-aware:is(.checkbox, .radio) > svg {
+    width: var(--kc-choice-size) !important;
+    height: var(--kc-choice-size) !important;
+    flex: 0 0 var(--kc-choice-size) !important;
+    opacity: 1 !important;
+}
+
+/* 2. Empty controls: clearly visible outline. */
+.theme-entry label.input-control.style-aware:is(.checkbox, .radio)
+    :is(.svg-checkbox-box, .svg-radio-btn-circle) {
+    fill: var(--kc-choice-surface) !important;
+    stroke: var(--kc-choice-border) !important;
+    stroke-width: 1.6px !important;
+    opacity: 1 !important;
+}
+.theme-entry label.input-control.style-aware:is(.checkbox, .radio)
+    :is(.svg-checkbox-checked, .svg-checkbox-indeterminate, .svg-radio-btn-checked) {
+    fill: none !important;
+    opacity: 1 !important;
+}
+
+/* 3. Selected checkbox: red background with white checkmark.
+   Native :checked follows the real input value, including rule updates. */
+.theme-entry label.input-control.checkbox.style-aware > input:checked ~ svg .svg-checkbox-box,
+.theme-entry label.input-control.checkbox.style-aware > input:indeterminate ~ svg .svg-checkbox-box {
+    fill: var(--kc-choice-selected) !important;
+    stroke: var(--kc-choice-selected) !important;
+}
+.theme-entry label.input-control.checkbox.style-aware > input:checked:not(:indeterminate) ~ svg .svg-checkbox-checked,
+.theme-entry label.input-control.checkbox.style-aware > input:indeterminate ~ svg .svg-checkbox-indeterminate {
+    fill: var(--kc-choice-mark) !important;
+}
+
+/* 4. Selected radio: strong ring and solid center dot. */
+.theme-entry label.input-control.radio.style-aware > input:checked ~ svg .svg-radio-btn-circle {
+    stroke: var(--kc-choice-selected) !important;
+}
+.theme-entry label.input-control.radio.style-aware > input:checked ~ svg .svg-radio-btn-checked {
+    fill: var(--kc-choice-selected) !important;
+}
+
+/* 5. Read-only controls stay readable, using dark gray selected marks. */
+.theme-entry label.input-control.style-aware:is(.checkbox, .radio).read-only {
+    --kc-choice-border: #646b75;
+    --kc-choice-surface: #f4f5f6;
+    --kc-choice-selected: #505761;
+}
+
+/* 6. Disabled controls use opaque gray instead of stacked fading.
+   K2 read-only inputs also have disabled=true, so their wrapper takes precedence. */
+.theme-entry label.input-control.style-aware:is(.checkbox, .radio).disabled,
+.theme-entry label.input-control.style-aware:is(.checkbox, .radio):not(.read-only):has(> input:disabled) {
+    --kc-choice-border: #777e88;
+    --kc-choice-surface: #e6e8ec;
+    --kc-choice-selected: #777e88;
+    cursor: not-allowed;
+}
+
+/* 7. Hover and keyboard focus. Do not change input enablement. */
+@media (hover: hover) and (pointer: fine) {
+    .theme-entry label.input-control.style-aware:is(.checkbox, .radio):not(.disabled):not(.read-only):has(> input:enabled):hover {
+        --kc-choice-border: #b91d32;
+        --kc-choice-surface: #fff4f5;
+    }
+}
+.theme-entry label.input-control.style-aware:is(.checkbox, .radio):has(> input:focus-visible) > svg {
+    outline: 2px solid #b91d32;
+    outline-offset: 2px;
+    border-radius: 3px;
+}
+.theme-entry label.input-control.radio.style-aware:has(> input:focus-visible) > svg {
+    border-radius: 50%;
+}
+
+/* 8. Windows High Contrast: follow the user's system colors. */
+@media (forced-colors: active) {
+    .theme-entry label.input-control.style-aware:is(.checkbox, .radio) {
+        --kc-choice-border: CanvasText !important;
+        --kc-choice-surface: Canvas !important;
+        --kc-choice-selected: Highlight !important;
+        --kc-choice-mark: HighlightText !important;
+    }
+    .theme-entry label.input-control.style-aware:is(.checkbox, .radio).disabled {
+        --kc-choice-border: GrayText !important;
+        --kc-choice-selected: GrayText !important;
+    }
+    .theme-entry label.input-control.style-aware:is(.checkbox, .radio) > svg {
+        forced-color-adjust: none;
+        outline-color: Highlight;
+    }
+}
