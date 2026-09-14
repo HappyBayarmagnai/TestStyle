@@ -1,4 +1,4 @@
-/* Kamoa SmartForms header + footer, v1
+/* Kamoa SmartForms header + footer + About/Help, v1.1
    Link this .js AND kamoa-layout.css through Style Profile > Developer.
    Replace the earlier test CSS; it creates its own additional header.
    This script runs in the current document only. It does not move, clone,
@@ -20,14 +20,23 @@
         hostSelector: ".theme-entry"
     };
 
+    // ABOUT / HELP CONTENT. Plain text; use \n for a new line.
+    const HELP = {
+        title: "About / Help",
+        text: "Use the menu to navigate between New Request, My Requests, and Waiting for You. Complete the required information before submitting your request.",
+        supportText: "" // Optional support contact or instructions.
+    };
+
     const API_NAME = "KamoaSmartFormShell";
-    const VERSION = "kamoa-smartform-shell-v1";
+    const VERSION = "kamoa-smartform-shell-v1.1-info";
     const previous = window[API_NAME];
     if (previous && previous.version === VERSION) {
         previous.refresh();
         return;
     }
-    if (previous) {
+    if (previous && previous.version === "kamoa-smartform-shell-v1" && typeof previous.destroy === "function") {
+        previous.destroy();
+    } else if (previous) {
         console.warn("Kamoa layout: global name is already in use; no changes made.");
         return;
     }
@@ -42,6 +51,7 @@
     let host = null;
     let header = null;
     let footer = null;
+    let helpDialog = null;
     let observer = null;
     let scheduled = null;
     let warnedAmbiguous = false;
@@ -54,6 +64,7 @@
         return node;
     }
 
+    // HEADER: branding, centered title, information action.
     function createHeader() {
         const node = element("header", "kcjs-header");
         node.setAttribute("data-kamoa-owned", "header");
@@ -87,13 +98,62 @@
         }
         // Text is assigned as textContent, so a page title cannot inject HTML.
         const title = element("div", "kcjs-header__title", CONFIG.title || document.title);
-        const spacer = element("div", "kcjs-header__balance");
-        spacer.setAttribute("aria-hidden", "true");
-        inner.append(brand, title, spacer);
+        const actions = element("div", "kcjs-header__actions");
+        const info = element("button", "kcjs-info", "i");
+        info.type = "button";
+        info.title = HELP.title;
+        info.setAttribute("aria-label", HELP.title);
+        info.setAttribute("aria-haspopup", "dialog");
+        actions.append(info);
+        inner.append(brand, title, actions);
         node.append(inner);
+        helpDialog = createHelpDialog(info);
+        node.append(helpDialog);
+        info.addEventListener("click", function () {
+            if (!helpDialog.open && helpDialog.isConnected) {
+                helpDialog.showModal();
+                helpDialog.querySelector(".kcjs-help__close").focus();
+            }
+        });
         return node;
     }
 
+    // ABOUT / HELP: owned markup only; existing K2 controls are not read or changed.
+    function createHelpDialog(trigger) {
+        const dialog = element("dialog", "kcjs-help");
+        dialog.setAttribute("data-kamoa-owned", "help");
+        dialog.setAttribute("aria-label", HELP.title);
+        const heading = element("div", "kcjs-help__heading");
+        heading.append(element("h2", "kcjs-help__title", HELP.title));
+        const body = element("div", "kcjs-help__body");
+        body.append(element("p", "kcjs-help__text", HELP.text));
+        if (HELP.supportText) body.append(element("p", "kcjs-help__text", HELP.supportText));
+        const close = element("button", "kcjs-help__close", "Close");
+        close.type = "button";
+        body.append(close);
+        dialog.append(heading, body);
+
+        close.addEventListener("click", function () { dialog.close(); });
+        // Escape uses native dialog behavior. Keep Tab on the single popup control.
+        dialog.addEventListener("keydown", function (event) {
+            if (event.key === "Tab") {
+                event.preventDefault();
+                close.focus();
+            }
+        });
+        dialog.addEventListener("close", function () {
+            if (!stopped && trigger.isConnected) trigger.focus();
+        });
+        dialog.addEventListener("click", function (event) {
+            const rect = dialog.getBoundingClientRect();
+            if (event.target === dialog &&
+                (event.clientX < rect.left || event.clientX > rect.right ||
+                 event.clientY < rect.top || event.clientY > rect.bottom)) dialog.close();
+        });
+        return dialog;
+    }
+
+    // FOOTER
     function createFooter() {
         const node = element("footer", "kcjs-footer");
         node.setAttribute("data-kamoa-owned", "footer");
@@ -113,7 +173,7 @@
         }
         const roots = matches.filter(function (node) {
             return node.tagName !== "HTML" &&
-                !node.closest('[role="dialog"], [aria-modal="true"]') &&
+                !node.closest('dialog, [role="dialog"], [aria-modal="true"]') &&
                 !matches.some(function (other) { return other !== node && other.contains(node); });
         });
         if (roots.length === 1) return roots[0];
@@ -129,6 +189,7 @@
         const next = findHost();
         if (!next) return;
         if (host !== next) {
+            if (helpDialog && helpDialog.open) helpDialog.close();
             // Only our two elements are removed. K2 controls are never touched.
             if (header) header.remove();
             if (footer) footer.remove();
@@ -170,6 +231,7 @@
         document.removeEventListener("DOMContentLoaded", start);
         if (observer) observer.disconnect();
         if (scheduled !== null) clearTimeout(scheduled);
+        if (helpDialog && helpDialog.open) helpDialog.close();
         if (header) header.remove();
         if (footer) footer.remove();
         if (window[API_NAME] === api) delete window[API_NAME];

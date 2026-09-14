@@ -2,10 +2,12 @@
    REPLACE previous test themes. No CSS-generated header, all-table
    transformations, page-level containment, or changes to K2 editor layout.
 */
+/* 1. Page background */
 html .theme-entry {
     --page-background-color: #ffffff;
     background-color: #ffffff !important;
 }
+/* 2. Header layout and branding */
 .theme-entry .kcjs-header {
     display: block;
     width: 100%;
@@ -61,6 +63,84 @@ html .theme-entry {
     white-space: normal;
     overflow-wrap: anywhere;
 }
+/* 3. Information button */
+.theme-entry .kcjs-header__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.theme-entry .kcjs-info {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid #797980;
+    border-radius: 50%;
+    background: transparent;
+    color: #ffffff;
+    font: 700 20px/1 Georgia, serif;
+    cursor: pointer;
+}
+
+/* 4. About / Help popup */
+.theme-entry .kcjs-help {
+    position: fixed;
+    inset: 0;
+    box-sizing: border-box;
+    width: min(520px, calc(100vw - 32px));
+    max-width: calc(100vw - 32px);
+    max-height: calc(100dvh - 32px);
+    margin: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #222226;
+    overflow: auto;
+    box-shadow: 0 20px 70px #0005;
+}
+.theme-entry .kcjs-help:not([open]) { display: none; }
+.theme-entry .kcjs-help::backdrop { background: #0009; }
+.theme-entry .kcjs-help__heading {
+    padding: 18px 24px;
+    background: #09090b;
+    border-bottom: 3px solid #ee3047;
+}
+.theme-entry .kcjs-help__title {
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    font: 600 20px/1.4 "Segoe UI", Arial, sans-serif;
+}
+.theme-entry .kcjs-help__body { padding: 24px; }
+.theme-entry .kcjs-help__text {
+    margin: 0 0 20px;
+    color: #333333;
+    font: 400 15px/1.65 "Segoe UI", Arial, sans-serif;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+.theme-entry .kcjs-help__close {
+    appearance: none;
+    min-height: 40px;
+    padding: 9px 20px;
+    border: 0;
+    border-radius: 5px;
+    background: #b91d32;
+    color: #ffffff;
+    font: 600 14px/1.5 "Segoe UI", Arial, sans-serif;
+    cursor: pointer;
+}
+.theme-entry :is(.kcjs-info, .kcjs-help__close):focus-visible {
+    outline: 3px solid #f5b338;
+    outline-offset: 3px;
+}
+
+/* 5. Footer */
 .theme-entry .kcjs-footer {
     display: block;
     box-sizing: border-box;
@@ -81,14 +161,23 @@ html .theme-entry {
     text-align: right;
     overflow-wrap: anywhere;
 }
+/* 6. Responsive header: logo and info on row one, title on row two. */
 @container kcjs-header (max-width: 640px) {
     .theme-entry .kcjs-header__inner {
-        grid-template-columns: minmax(0, 1fr);
+        grid-template-columns: minmax(0, 1fr) 40px;
         gap: 12px;
         padding: 16px;
     }
-    .theme-entry .kcjs-header__title { text-align: left; font-size: 18px; }
-    .theme-entry .kcjs-header__balance { display: none; }
+    .theme-entry .kcjs-brand { grid-column: 1; grid-row: 1; }
+    .theme-entry .kcjs-header__actions { grid-column: 2; grid-row: 1; }
+    .theme-entry .kcjs-header__title {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        text-align: left;
+        font-size: 18px;
+    }
 }
-
-
+@media (hover: hover) and (pointer: fine) {
+    .theme-entry .kcjs-info:hover { background: #29292e; }
+    .theme-entry .kcjs-help__close:hover { background: #97172a; }
+}
