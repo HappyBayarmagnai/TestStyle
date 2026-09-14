@@ -1,4 +1,4 @@
-/* Kamoa SmartForms header + footer + About/Help, v1.1
+/* Kamoa SmartForms header + footer + About/Help, v1.2
    Link this .js AND kamoa-layout.css through Style Profile > Developer.
    Replace the earlier test CSS; it creates its own additional header.
    This script runs in the current document only. It does not move, clone,
@@ -11,7 +11,8 @@
     const CONFIG = {
         headerEnabled: true,
         footerEnabled: true,
-        title: "", // Use "" to take the browser page title.
+        titleSelector: '[name="KcFormTitle"]',
+        titleFallback: "Kamoa Form",
         brandName: "KAMOA",
         brandSubtitle: "COPPER S.A.",
         logoUrl: "https://happybayarmagnai.github.io/TestStyle/kamoa-icon-png.png", // Optional: https://your-server/approved-logo.png
@@ -28,13 +29,13 @@
     };
 
     const API_NAME = "KamoaSmartFormShell";
-    const VERSION = "kamoa-smartform-shell-v1.1-info";
+    const VERSION = "kamoa-smartform-shell-v1.2-form-title";
     const previous = window[API_NAME];
     if (previous && previous.version === VERSION) {
         previous.refresh();
         return;
     }
-    if (previous && previous.version === "kamoa-smartform-shell-v1" && typeof previous.destroy === "function") {
+    if (previous && typeof previous.destroy === "function") {
         previous.destroy();
     } else if (previous) {
         console.warn("Kamoa layout: global name is already in use; no changes made.");
@@ -96,8 +97,8 @@
                 console.warn("Kamoa layout: using text branding; " + error.message);
             }
         }
-        // Text is assigned as textContent, so a page title cannot inject HTML.
-        const title = element("div", "kcjs-header__title", CONFIG.title || document.title);
+        // The per-form title is synchronized from the KcFormTitle Data Label.
+        const title = element("div", "kcjs-header__title", CONFIG.titleFallback);
         const actions = element("div", "kcjs-header__actions");
         const info = element("button", "kcjs-info", "i");
         info.type = "button";
@@ -162,6 +163,27 @@
         return node;
     }
 
+    function refreshFormTitle() {
+        if (!host || !header) return;
+        const titleNode = header.querySelector(".kcjs-header__title");
+        if (!titleNode) return;
+
+        let sources;
+        try {
+            sources = host.querySelectorAll(CONFIG.titleSelector);
+        } catch (error) {
+            sources = [];
+        }
+
+        // Exactly one source avoids choosing the wrong title when a form
+        // accidentally contains duplicate KcFormTitle controls.
+        const formTitle = sources.length === 1
+            ? sources[0].textContent.trim()
+            : "";
+        const nextTitle = formTitle || CONFIG.titleFallback;
+        if (titleNode.textContent !== nextTitle) titleNode.textContent = nextTitle;
+    }
+
     function findHost() {
         let matches;
         try {
@@ -198,6 +220,7 @@
         if (CONFIG.headerEnabled) {
             if (!header) header = createHeader();
             if (header.parentNode !== host) host.prepend(header);
+            refreshFormTitle();
         }
         if (CONFIG.footerEnabled) {
             if (!footer) footer = createFooter();
@@ -223,7 +246,11 @@
         // Handles a form root appearing late or being replaced by K2.
         // Only child-list changes are watched; no continuous polling.
         observer = new MutationObserver(schedule);
-        observer.observe(document.documentElement, { childList: true, subtree: true });
+        observer.observe(document.documentElement, {
+            childList: true,
+            subtree: true,
+            characterData: true
+        });
     }
 
     function destroy() {

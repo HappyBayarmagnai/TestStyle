@@ -7,6 +7,11 @@ html .theme-entry {
     --page-background-color: #ffffff;
     background-color: #ffffff !important;
 }
+/* Per-form title source. Keep the K2 Data Label Visible so JavaScript can
+   read it; this rule hides only the source control from the runtime page. */
+.theme-entry [name="KcFormTitle"] {
+    display: none !important;
+}
 /* 2. Header layout and branding */
 .theme-entry .kcjs-header {
     display: block;
