@@ -14,7 +14,7 @@
         title: "Overtime Request Form", // Use "" to take the browser page title.
         brandName: "KAMOA",
         brandSubtitle: "COPPER S.A.",
-        logoUrl: "https://happybayarmagnai.github.io/TestStyle/kamoa-icon-webp.webp", // Optional: https://your-server/approved-logo.png
+        logoUrl: "https://happybayarmagnai.github.io/TestStyle/kamoa-icon-png.png", // Optional: https://your-server/approved-logo.png
         logoAlt: "Kamoa Copper S.A.",
         footerText: "Kamoa Copper S.A. All rights reserved.",
         hostSelector: ".theme-entry"
