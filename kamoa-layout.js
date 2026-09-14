@@ -11,7 +11,7 @@
     const CONFIG = {
         headerEnabled: true,
         footerEnabled: true,
-        title: "Overtime Request Form", // Use "" to take the browser page title.
+        title: "", // Use "" to take the browser page title.
         brandName: "KAMOA",
         brandSubtitle: "COPPER S.A.",
         logoUrl: "https://happybayarmagnai.github.io/TestStyle/kamoa-icon-png.png", // Optional: https://your-server/approved-logo.png
