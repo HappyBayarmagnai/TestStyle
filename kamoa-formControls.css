@@ -54,21 +54,44 @@
     fill: var(--kc-choice-selected) !important;
 }
 
-/* 5. Read-only controls stay readable, using dark gray selected marks. */
+/* 5. Read-only options: filled gray with a dashed boundary.
+   K2 uses read-only wrappers for the unavailable leave-type options. */
 .theme-entry label.input-control.style-aware:is(.checkbox, .radio).read-only {
-    --kc-choice-border: #646b75;
-    --kc-choice-surface: #f4f5f6;
+    --kc-choice-border: #656d79;
+    --kc-choice-surface: #d4d9e0;
     --kc-choice-selected: #505761;
+    cursor: not-allowed;
 }
 
 /* 6. Disabled controls use opaque gray instead of stacked fading.
    K2 read-only inputs also have disabled=true, so their wrapper takes precedence. */
 .theme-entry label.input-control.style-aware:is(.checkbox, .radio).disabled,
 .theme-entry label.input-control.style-aware:is(.checkbox, .radio):not(.read-only):has(> input:disabled) {
-    --kc-choice-border: #777e88;
-    --kc-choice-surface: #e6e8ec;
-    --kc-choice-selected: #777e88;
+    --kc-choice-border: #656d79;
+    --kc-choice-surface: #c5ccd5;
+    --kc-choice-selected: #656d79;
     cursor: not-allowed;
+}
+
+/* A dashed shape distinguishes unavailable options without relying on color. */
+.theme-entry label.input-control.style-aware:is(.checkbox, .radio):is(.disabled, .read-only, :has(> input:disabled))
+    :is(.svg-checkbox-box, .svg-radio-btn-circle) {
+    stroke-dasharray: 2.4 1.4 !important;
+    stroke-width: 1.8px !important;
+}
+.theme-entry label.input-control.style-aware:is(.checkbox, .radio):is(.disabled, .read-only, :has(> input:disabled))
+    > .input-control-text {
+    color: #636b76 !important;
+    font-style: italic;
+}
+
+/* Leave form: these captions are separate K2 Labels in the next cell.
+   Scope to the TOL_ controls inspected on the leave form; red note spans
+   keep their own colors. Re-enabling the input restores the original style. */
+.theme-entry [layouttype="cell"]:has(input[name^="TOL_"]:disabled)
+    + [layouttype="cell"] > .SourceCode-Forms-Controls-Web-Label[name^="TOL_"] {
+    color: #636b76 !important;
+    font-style: italic;
 }
 
 /* 7. Hover and keyboard focus. Do not change input enablement. */
