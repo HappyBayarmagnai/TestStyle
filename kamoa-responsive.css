@@ -1,16 +1,22 @@
-/* KAMOA RESPONSIVE LAYOUT — v1
+/* KAMOA RESPONSIVE LAYOUT - v2
    Load LAST in Style Profile > Developer, after the other Kamoa CSS files.
 
    Applies only to runtime pages containing our generated header.
    Standard K2 lists, calendars, picker internals and hidden controls keep
    their own layout/visibility. No controls are moved or cloned.
 
-   Built-in adapters: inspected Overtime and Leave test forms.
-   For other forms, give layout Tables these Names:
-     KcFields / KcFields_* : label then input, in DOM reading order
-     KcChoices / KcChoices_* : checkbox cell then caption cell
-     KcMenu : existing navigation Table
-     KcStack / KcStack_* : each cell becomes a full-width row
+   Standard reusable layout Table names:
+     KcFields / KcFields_*   : label then input, in DOM reading order
+     KcChoices / KcChoices_* : checkbox/radio cell then caption cell
+     KcMenu / KcMenu_*       : existing navigation buttons
+     KcActions / KcActions_* : form action buttons
+     KcStack / KcStack_*     : each cell becomes a full-width row
+
+   Standard project names use KcType_Project_Number, for example:
+     KcFields_OR_01, KcChoices_LR_01, KcActions_MWA_01
+
+   Built-in legacy adapters remain for the inspected Overtime and Leave forms
+   until those forms are migrated to the standard names and reading order.
    KcFields must not have a row of labels followed by a row of inputs.
    The Leave applicant adapter below explicitly handles that arrangement.
 */
@@ -41,7 +47,55 @@
     }
 }
 
-/* 2. Phone/tablet layout. Desktop view-grid column widths stay as designed. */
+/* 2. Shared structural tables. These rules do not rearrange desktop rows or
+   columns. They provide consistent sizing and cell spacing for named Tables. */
+body.theme-entry:has(> .kcjs-header[data-kamoa-owned="header"]) {
+    --kc-layout-cell-block: 6px;
+    --kc-layout-cell-inline: 8px;
+    --kc-layout-gap: 8px;
+}
+body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form .Grid-Layout:is(
+    [name="KcFields"], [name^="KcFields_"],
+    [name="KcChoices"], [name^="KcChoices_"],
+    [name="KcStack"], [name^="KcStack_"]
+) {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+}
+body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form .Grid-Layout:is(
+    [name="KcFields"], [name^="KcFields_"],
+    [name="KcChoices"], [name^="KcChoices_"],
+    [name="KcStack"], [name^="KcStack_"]
+) > [layouttype="cell"] {
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+    padding: var(--kc-layout-cell-block) var(--kc-layout-cell-inline) !important;
+}
+
+/* Action Tables use flex so K2 buttons wrap cleanly without changing rules,
+   names, click handlers, visibility, or enabled state. */
+body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
+:is([name="KcActions"], [name^="KcActions_"]).Grid-Layout {
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    box-sizing: border-box;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 8px 0 !important;
+}
+body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
+:is([name="KcActions"], [name^="KcActions_"]) > [layouttype="cell"] {
+    flex: 0 1 auto;
+    min-width: 0 !important;
+    padding: 0 !important;
+}
+
+/* 3. Phone/tablet layout. Desktop view-grid column widths stay as designed. */
 @media screen and (max-width: 768px) {
     body.theme-entry:has(> .kcjs-header[data-kamoa-owned="header"]) {
         --kc-mobile-gap: 8px;
@@ -96,7 +150,7 @@
     body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :where(
         .form:is([id="428e99f4-0edf-4605-b0be-0f5bf3ce9d81"], [id="223d2115-10fd-44b7-84d2-2eca0c716576"]) .Grid-Layout.root-table,
         .Grid-Layout:is([name="KcFields"], [name^="KcFields_"], [name="KcChoices"], [name^="KcChoices_"], [name="KcStack"], [name^="KcStack_"]),
-        .Grid-Layout.root-table:has([name="KcMenu"])
+        .Grid-Layout.root-table:has(:is([name="KcMenu"], [name^="KcMenu_"]))
     ) {
         display: grid !important;
         grid-template-columns: minmax(0, 1fr) !important;
@@ -113,7 +167,7 @@
     body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :where(
         .form:is([id="428e99f4-0edf-4605-b0be-0f5bf3ce9d81"], [id="223d2115-10fd-44b7-84d2-2eca0c716576"]) .Grid-Layout.root-table,
         .Grid-Layout:is([name="KcFields"], [name^="KcFields_"], [name="KcChoices"], [name^="KcChoices_"], [name="KcStack"], [name^="KcStack_"]),
-        .Grid-Layout.root-table:has([name="KcMenu"])
+        .Grid-Layout.root-table:has(:is([name="KcMenu"], [name^="KcMenu_"]))
     ) > [layouttype="cell"] {
         grid-column: 1 / -1 !important;
         grid-row: auto !important;
@@ -167,28 +221,44 @@
     }
 
     /* 5. Menu wraps; username uses a separate full-width row. */
-    body:has(> .kcjs-header[data-kamoa-owned="header"]) [name="KcMenu"].Grid-Layout {
+    body:has(> .kcjs-header[data-kamoa-owned="header"]) :is([name="KcMenu"], [name^="KcMenu_"]).Grid-Layout {
         padding: 8px 0 !important;
         justify-content: flex-start !important;
         gap: 8px !important;
     }
-    body:has(> .kcjs-header[data-kamoa-owned="header"]) [name="KcMenu"] > [layouttype="cell"] {
+    body:has(> .kcjs-header[data-kamoa-owned="header"]) :is([name="KcMenu"], [name^="KcMenu_"]) > [layouttype="cell"] {
         flex: 1 1 140px;
     }
-    body:has(> .kcjs-header[data-kamoa-owned="header"]) [name="KcMenu"] > [layouttype="cell"]:has(> .SourceCode-Forms-Controls-Web-Button.hidden):not(:has(> .SourceCode-Forms-Controls-Web-Button:not(.hidden))) {
+    body:has(> .kcjs-header[data-kamoa-owned="header"]) :is([name="KcMenu"], [name^="KcMenu_"]) > [layouttype="cell"]:has(> .SourceCode-Forms-Controls-Web-Button.hidden):not(:has(> .SourceCode-Forms-Controls-Web-Button:not(.hidden))) {
         display: none !important;
     }
-    body:has(> .kcjs-header[data-kamoa-owned="header"]) [name="KcMenu"] .SourceCode-Forms-Controls-Web-Button {
+    body:has(> .kcjs-header[data-kamoa-owned="header"]) :is([name="KcMenu"], [name^="KcMenu_"]) .SourceCode-Forms-Controls-Web-Button {
         width: 100% !important;
         min-height: 44px !important;
         text-align: center;
     }
-    body:has(> .kcjs-header[data-kamoa-owned="header"]) .Grid-Layout.root-table:has([name="KcMenu"])
+    body:has(> .kcjs-header[data-kamoa-owned="header"]) .Grid-Layout.root-table:has(:is([name="KcMenu"], [name^="KcMenu_"]))
         > [layouttype="cell"]:has(> .SourceCode-Forms-Controls-Web-DataLabel:not(.hidden, [name="KcFormTitle"])) {
         gap: 4px 8px;
     }
 
-    /* 6. Leave applicant details: reorder label rows to stay with inputs.
+    /* 6. Action buttons wrap into equal usable widths on tablets. */
+    body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
+    :is([name="KcActions"], [name^="KcActions_"]).Grid-Layout {
+        justify-content: stretch;
+    }
+    body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
+    :is([name="KcActions"], [name^="KcActions_"]) > [layouttype="cell"] {
+        flex: 1 1 160px;
+    }
+    body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
+    :is([name="KcActions"], [name^="KcActions_"]) .SourceCode-Forms-Controls-Web-Button {
+        width: 100% !important;
+        min-height: 44px !important;
+    }
+
+    /* 7. Temporary Leave applicant adapter: reorder label rows to stay with
+       inputs. Remove after the Table uses standard label/input DOM order.
        This adapter matches the inspected table, not all four-column grids. */
     body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
     .Grid-Layout.root-table:has(> [layouttype="cell"] > [name="AD_Name_TB"]) > [layouttype="cell"] {
@@ -213,7 +283,7 @@
     body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
     .Grid-Layout.root-table:has(> [layouttype="cell"] > [name="AD_Name_TB"]) > [row="3"][col="4"] { order: 8; }
 
-    /* 7. Checkbox list: each box stays beside its own caption. */
+    /* 8. Checkbox list: each box stays beside its own caption. */
     body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form .Grid-Layout:is(
         [name="KcChoices"], [name^="KcChoices_"], :has(> [layouttype="cell"] > [name="TOL_1_L"])
     ) {
@@ -234,7 +304,7 @@
         align-items: center !important;
     }
 
-    /* 8. Keep list headers/data together in one horizontal scroll area.
+    /* 9. Keep list headers/data together in one horizontal scroll area.
        Only top-level view grids; picker search result grids are excluded. */
     body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form .view > .innerpanel > .grid {
         max-width: 100% !important;
@@ -247,5 +317,19 @@
     body:has(> .kcjs-header[data-kamoa-owned="header"]) .kcjs-footer__inner {
         padding: 12px;
         text-align: left;
+    }
+}
+
+/* 4. Phone action layout. Each action receives a full-width row. */
+@media screen and (max-width: 480px) {
+    body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
+    :is([name="KcActions"], [name^="KcActions_"]).Grid-Layout {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
+    :is([name="KcActions"], [name^="KcActions_"]) > [layouttype="cell"] {
+        flex: 0 1 auto;
+        width: 100% !important;
     }
 }

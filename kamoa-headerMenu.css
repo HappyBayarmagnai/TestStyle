@@ -1,8 +1,12 @@
-/* OPTIONAL: give your existing one-row menu Table the Name KcMenu.
-   These rules style its existing K2 buttons without changing their actions.
-   Other menu tables and other K2 controls retain their original styling.
+/* Kamoa navigation menu.
+   Supported Table names:
+     KcMenu                  legacy/shared name
+     KcMenu_<Project>_<NN>   standard name, for example KcMenu_OR_01
+
+   These rules style existing K2 buttons without changing their actions.
+   Other tables and K2 controls retain their original styling.
 */
-.theme-entry [name="KcMenu"].Grid-Layout {
+.theme-entry :is([name="KcMenu"], [name^="KcMenu_"]).Grid-Layout {
     display: flex !important;
     flex-wrap: wrap;
     align-items: center;
@@ -13,12 +17,12 @@
     background: #ffffff !important;
     border-bottom: 1px solid #dedee3 !important;
 }
-.theme-entry [name="KcMenu"] > [layouttype="cell"] {
+.theme-entry :is([name="KcMenu"], [name^="KcMenu_"]) > [layouttype="cell"] {
     flex: 0 1 auto;
     min-width: 0 !important;
     padding: 0 !important;
 }
-.theme-entry [name="KcMenu"] .SourceCode-Forms-Controls-Web-Button {
+.theme-entry :is([name="KcMenu"], [name^="KcMenu_"]) .SourceCode-Forms-Controls-Web-Button {
     box-sizing: border-box !important;
     width: auto !important;
     min-height: 40px;
@@ -34,17 +38,20 @@
     text-decoration: none !important;
     white-space: normal !important;
 }
-.theme-entry [name="KcMenu"] .SourceCode-Forms-Controls-Web-Button span { font: inherit !important; color: inherit !important; }
-.theme-entry [name="KcMenu"] .SourceCode-Forms-Controls-Web-Button:focus-visible {
+.theme-entry :is([name="KcMenu"], [name^="KcMenu_"]) .SourceCode-Forms-Controls-Web-Button span {
+    font: inherit !important;
+    color: inherit !important;
+}
+.theme-entry :is([name="KcMenu"], [name^="KcMenu_"]) .SourceCode-Forms-Controls-Web-Button:focus-visible {
     outline: 3px solid #b31b31 !important;
     outline-offset: 2px;
 }
 @media (hover: hover) and (pointer: fine) {
-    .theme-entry [name="KcMenu"] .SourceCode-Forms-Controls-Web-Button:not(.disabled):not([disabled]):not([aria-disabled="true"]):hover {
+    .theme-entry :is([name="KcMenu"], [name^="KcMenu_"]) .SourceCode-Forms-Controls-Web-Button:not(.disabled):not([disabled]):not([aria-disabled="true"]):hover {
         background: #f4f4f6 !important;
     }
 }
-.theme-entry [name="KcMenu"] .SourceCode-Forms-Controls-Web-Button:is(.disabled, [disabled], [aria-disabled="true"]) {
+.theme-entry :is([name="KcMenu"], [name^="KcMenu_"]) .SourceCode-Forms-Controls-Web-Button:is(.disabled, [disabled], [aria-disabled="true"]) {
     color: #777780 !important;
     background: #f0f0f3 !important;
     cursor: default;

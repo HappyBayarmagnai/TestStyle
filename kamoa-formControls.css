@@ -85,9 +85,18 @@
     font-style: italic;
 }
 
-/* Leave form: these captions are separate K2 Labels in the next cell.
-   Scope to the TOL_ controls inspected on the leave form; red note spans
-   keep their own colors. Re-enabling the input restores the original style. */
+/* Standard named choice layouts: when a disabled checkbox/radio is in one
+   cell and its KcLabel_* caption is in the next cell, mute that caption too.
+   Red note spans nested inside the caption keep their own explicit colors. */
+.theme-entry [layouttype="cell"]:has(input:is(
+    [name^="KcCheckBox_"], [name^="KcRadio_"]
+):disabled) + [layouttype="cell"] > [name^="KcLabel_"] {
+    color: #636b76 !important;
+    font-style: italic;
+}
+
+/* Temporary Leave Request compatibility. Move this selector to the Leave
+   project stylesheet after its TOL_* controls use the standard names. */
 .theme-entry [layouttype="cell"]:has(input[name^="TOL_"]:disabled)
     + [layouttype="cell"] > .SourceCode-Forms-Controls-Web-Label[name^="TOL_"] {
     color: #636b76 !important;
