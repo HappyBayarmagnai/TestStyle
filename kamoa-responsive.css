@@ -94,39 +94,18 @@ body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
     min-width: 0 !important;
     padding: 0 !important;
 }
+body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
+:is([name="KcTable"], [name^="KcTable_"]) {
 
+    display: grid !important;
 
-@media screen and (min-width: 1600px) {
-    body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
-    :is([name="KcTable"], [name^="KcTable_"]) {
-        display: grid !important;
-        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-        gap: 16px 24px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-}
+    grid-template-columns:
+        repeat(auto-fit, minmax(280px, 1fr)) !important;
 
-@media screen and (min-width: 1300px) and (max-width: 1599px) {
-    body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
-    :is([name="KcTable"], [name^="KcTable_"]) {
-        display: grid !important;
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        gap: 16px 24px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-}
+    gap: 16px 24px !important;
 
-@media screen and (min-width: 768px) and (max-width: 1299px) {
-    body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
-    :is([name="KcTable"], [name^="KcTable_"]) {
-        display: grid !important;
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        gap: 16px 24px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
+    width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 /* 3. Phone/tablet layout. Desktop view-grid column widths stay as designed. */
@@ -353,14 +332,6 @@ body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
         text-align: left;
     }
 
-    body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
-    :is([name="KcTable"], [name^="KcTable_"]) {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
 }
 
 /* 4. Phone action layout. Each action receives a full-width row. */
@@ -376,8 +347,4 @@ body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
         width: 100% !important;
     }
 
-    body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]) .grid-body,
-    body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]) .grid-header {
-    min-width: 520px !important;
-    }
 }
