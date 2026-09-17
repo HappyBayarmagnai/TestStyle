@@ -94,19 +94,6 @@ body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
     min-width: 0 !important;
     padding: 0 !important;
 }
-body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
-:is([name="KcTable"], [name^="KcTable_"]) {
-
-    display: grid !important;
-
-    grid-template-columns:
-        repeat(auto-fit, minmax(280px, 1fr)) !important;
-
-    gap: 16px 24px !important;
-
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
 
 /* 3. Phone/tablet layout. Desktop view-grid column widths stay as designed. */
 @media screen and (max-width: 768px) {
@@ -331,7 +318,6 @@ body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
         padding: 12px;
         text-align: left;
     }
-
 }
 
 /* 4. Phone action layout. Each action receives a full-width row. */
@@ -346,5 +332,4 @@ body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
         flex: 0 1 auto;
         width: 100% !important;
     }
-
 }
