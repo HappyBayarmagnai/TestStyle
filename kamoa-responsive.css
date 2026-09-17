@@ -95,6 +95,32 @@ body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
     padding: 0 !important;
 }
 
+@media screen and (min-width: 1025px){
+    body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
+    :is([name="KcTable"], [name^="KcTable_"]){
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
+
+
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+  /* Prevent horizontal squeeze; allow smooth horizontal scrolling if columns overflow */
+  body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]),
+  body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]) .grid {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]) .grid-body {
+    min-width: 720px !important; /* Preserves minimum readable table width */
+  }
+}
+
 /* 3. Phone/tablet layout. Desktop view-grid column widths stay as designed. */
 @media screen and (max-width: 768px) {
     body.theme-entry:has(> .kcjs-header[data-kamoa-owned="header"]) {
@@ -318,6 +344,32 @@ body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
         padding: 12px;
         text-align: left;
     }
+
+    /* Wrap the table and grid wrapper into a responsive scroll container */
+  body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]),
+  body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]) .grid {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box !important;
+  }
+
+  /* Force grid header and data rows to stay aligned together during scroll */
+  body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]) .grid-body,
+  body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]) .grid-header {
+    min-width: 600px !important; /* Prevents cell distortion on small screens */
+  }
+
+  /* Increase touch hit targets for row selection & action buttons inside list views */
+  body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]) .grid-row td {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    font-size: 14px !important;
+  }
 }
 
 /* 4. Phone action layout. Each action receives a full-width row. */
@@ -331,5 +383,10 @@ body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
     :is([name="KcActions"], [name^="KcActions_"]) > [layouttype="cell"] {
         flex: 0 1 auto;
         width: 100% !important;
+    }
+
+    body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]) .grid-body,
+    body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]) .grid-header {
+    min-width: 520px !important;
     }
 }
