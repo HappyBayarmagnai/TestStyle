@@ -98,9 +98,11 @@ body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
 @media screen and (min-width: 1025px){
     body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
     :is([name="KcTable"], [name^="KcTable_"]){
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
+        display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 16px 24px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
     }
 }
 
@@ -109,15 +111,16 @@ body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
   /* Prevent horizontal squeeze; allow smooth horizontal scrolling if columns overflow */
   body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]),
   body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]) .grid {
-    display: block !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 14px 20px !important;
     width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box !important;
   }
 
   body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]) .grid-body {
-    min-width: 720px !important; /* Preserves minimum readable table width */
+    grid-column: auto !important; /* Overrides full-width forced spanning */
+    width: 100% !important;
   }
 }
 
@@ -345,30 +348,16 @@ body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
         text-align: left;
     }
 
-    /* Wrap the table and grid wrapper into a responsive scroll container */
-  body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]),
-  body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]) .grid {
-    display: block !important;
+    body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form .Grid-Layout:is([name="KcFields"], [name^="KcFields_"]) {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
     width: 100% !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    -webkit-overflow-scrolling: touch;
-    box-sizing: border-box !important;
   }
 
-  /* Force grid header and data rows to stay aligned together during scroll */
-  body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]) .grid-body,
-  body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]) .grid-header {
-    min-width: 600px !important; /* Prevents cell distortion on small screens */
-  }
-
-  /* Increase touch hit targets for row selection & action buttons inside list views */
-  body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form :is([name="KcTable"], [name^="KcTable_"]) .grid-row td {
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-    font-size: 14px !important;
+  body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form .Grid-Layout:is([name="KcFields"], [name^="KcFields_"]) > [layouttype="cell"] {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
   }
 }
 
