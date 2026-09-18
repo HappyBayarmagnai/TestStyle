@@ -1,4 +1,4 @@
-/* KAMOA RESPONSIVE LAYOUT - v2
+/* KAMOA RESPONSIVE LAYOUT - v3 KcTable base
    Load LAST in Style Profile > Developer, after the other Kamoa CSS files.
 
    Applies only to runtime pages containing our generated header.
@@ -6,6 +6,7 @@
    their own layout/visibility. No controls are moved or cloned.
 
    Standard reusable layout Table names:
+     KcTable / KcTable_*     : desktop grid, mobile cells in reading order
      KcFields / KcFields_*   : label then input, in DOM reading order
      KcChoices / KcChoices_* : checkbox/radio cell then caption cell
      KcMenu / KcMenu_*       : existing navigation buttons
@@ -21,8 +22,13 @@
    The Leave applicant adapter below explicitly handles that arrangement.
 */
 
-/* 1. Page flow. K2's absolutely positioned #form1 overlaps a header/footer
-   inserted outside it. Use normal flow only when our shell is present. */
+/* =========================================================
+   1. ALL SCREENS
+   Page flow and reusable structural Table sizing.
+   ========================================================= */
+
+/* K2's absolutely positioned #form1 overlaps a header/footer inserted
+   outside it. Use normal flow only when our shell is present. */
 @media screen {
     html:has(> body.theme-entry > .kcjs-header[data-kamoa-owned="header"]) {
         height: auto !important;
@@ -45,9 +51,27 @@
         box-sizing: border-box;
         overflow: visible !important;
     }
+    /* KcTable opt-in base. Examples: KcTable_OR_01, KcTable_LR_02.
+       Applies to K2 layout DIVs only, never HTML data tables or list grids.
+       Keep label/control pairs adjacent in DOM order. Nested tables opt in
+       separately. Desktop column widths and merged cells remain as designed.
+       No display override: K2 hidden state is preserved. */
+    :where(body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form)
+    .Grid-Layout:is([name="KcTable"], [name^="KcTable_"]) {
+        box-sizing: border-box !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+    :where(body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form)
+    .Grid-Layout:is([name="KcTable"], [name^="KcTable_"]) > [layouttype="cell"] {
+        box-sizing: border-box !important;
+        min-width: 0 !important;
+        padding: var(--kc-table-cell-block, 6px) var(--kc-table-cell-inline, 8px) !important;
+    }
 }
 
-/* 2. Shared structural tables. These rules do not rearrange desktop rows or
+/* Shared structural tables. These rules do not rearrange desktop rows or
    columns. They provide consistent sizing and cell spacing for named Tables. */
 body.theme-entry:has(> .kcjs-header[data-kamoa-owned="header"]) {
     --kc-layout-cell-block: 6px;
@@ -95,11 +119,74 @@ body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
     padding: 0 !important;
 }
 
-/* 3. Phone/tablet layout. Desktop view-grid column widths stay as designed. */
+/* =========================================================
+   2. TABLET AND PHONE - 768PX AND BELOW
+   Page width, reusable Tables, menus, actions and list grids.
+   ========================================================= */
 @media screen and (max-width: 768px) {
     body.theme-entry:has(> .kcjs-header[data-kamoa-owned="header"]) {
         --kc-mobile-gap: 8px;
         --kc-mobile-edge: 12px;
+    }
+
+    /* KcTable: stack each direct cell in DOM reading order. Nested KcTable
+       layouts opt in independently and keep their own controls together. */
+    :where(body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form)
+    .Grid-Layout:is([name="KcTable"], [name^="KcTable_"]) {
+        grid-template-columns: minmax(0, 1fr) !important;
+        grid-template-rows: none !important;
+        grid-auto-columns: minmax(0, 1fr) !important;
+        grid-auto-rows: auto !important;
+        grid-auto-flow: row !important;
+        gap: var(--kc-table-mobile-gap, 8px) !important;
+        height: auto !important;
+        min-height: 0 !important;
+    }
+    :where(body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form)
+    .Grid-Layout:is([name="KcTable"], [name^="KcTable_"]) > [layouttype="cell"] {
+        grid-column: 1 / -1 !important;
+        grid-row: auto !important;
+        order: 0 !important;
+        width: auto !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: var(--kc-table-mobile-cell-block, 4px) 0 !important;
+        justify-content: flex-start !important;
+        flex-wrap: wrap;
+    }
+    /* Only genuinely empty cells or explicitly named spacers disappear.
+       NBSP-only K2 cells should be named KcSpacer_*; plain text is retained. */
+    :where(body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form)
+    .Grid-Layout:is([name="KcTable"], [name^="KcTable_"]) > [layouttype="cell"]:is(:empty, [name^="KcSpacer_"]) {
+        display: none !important;
+    }
+    :where(body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form)
+    .Grid-Layout:is([name="KcTable"], [name^="KcTable_"]) > [layouttype="cell"] > :is(
+        .SourceCode-Forms-Controls-Web-Label,
+        .SourceCode-Forms-Controls-Web-DataLabel
+    ) {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        white-space: normal !important;
+        word-break: normal !important;
+        overflow-wrap: anywhere !important;
+        text-overflow: clip !important;
+    }
+    /* Size the control wrapper, not internal calendar/picker buttons. */
+    :where(body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form)
+    .Grid-Layout:is([name="KcTable"], [name^="KcTable_"]) > [layouttype="cell"] > :is(
+        .SourceCode-Forms-Controls-Web-TextBox,
+        .SourceCode-Forms-Controls-Web-TextArea,
+        .picker, .input-control.select-box, .input-control.text-input,
+        .Grid-Layout
+    ) {
+        box-sizing: border-box !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        flex: 1 1 100%;
     }
 
     /* Full usable width, instead of K2's centered narrow content strip. */
@@ -320,7 +407,9 @@ body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
     }
 }
 
-/* 4. Phone action layout. Each action receives a full-width row. */
+/* =========================================================
+   3. SMALL PHONE - 480PX AND BELOW
+   ========================================================= */
 @media screen and (max-width: 480px) {
     body:has(> .kcjs-header[data-kamoa-owned="header"]) .runtime-form
     :is([name="KcActions"], [name^="KcActions_"]).Grid-Layout {
