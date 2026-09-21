@@ -560,18 +560,72 @@
 .theme-entry .SourceCode-Forms-Controls-Web-ControlPack-MultiChoice
     .buttonWrapper {
     width: 42px !important;
+    display: grid !important;
+    grid-template-columns: 32px !important;
+    grid-template-rows: repeat(4, 32px) !important;
+    justify-content: center !important;
+    align-content: center !important;
+    gap: 4px !important;
 }
 
 .theme-entry .SourceCode-Forms-Controls-Web-ControlPack-MultiChoice
     .buttonWrapper > a {
     box-sizing: border-box !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    display: block !important;
+    grid-column: 1 !important;
+    align-self: stretch !important;
+    justify-self: stretch !important;
     width: 32px !important;
     height: 32px !important;
-    margin: 4px auto !important;
+    margin: 0 !important;
+    background-image: none !important;
+    background-color: transparent !important;
     border-radius: 4px !important;
+    z-index: 2 !important;
+}
+
+.theme-entry .SourceCode-Forms-Controls-Web-ControlPack-MultiChoice
+    .buttonWrapper > svg {
+    grid-column: 1 !important;
+    align-self: center !important;
+    justify-self: center !important;
+    width: 20px !important;
+    height: 20px !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+}
+
+.theme-entry .SourceCode-Forms-Controls-Web-ControlPack-MultiChoice
+    .buttonWrapper > :is(a, svg).buttonAll {
+    grid-row: 1 !important;
+}
+
+.theme-entry .SourceCode-Forms-Controls-Web-ControlPack-MultiChoice
+    .buttonWrapper > :is(a, svg).buttonOne {
+    grid-row: 2 !important;
+}
+
+.theme-entry .SourceCode-Forms-Controls-Web-ControlPack-MultiChoice
+    .buttonWrapper > :is(a, svg).buttonOneBack {
+    grid-row: 3 !important;
+}
+
+.theme-entry .SourceCode-Forms-Controls-Web-ControlPack-MultiChoice
+    .buttonWrapper > :is(a, svg).buttonAllBack {
+    grid-row: 4 !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .theme-entry .SourceCode-Forms-Controls-Web-ControlPack-MultiChoice
+        .buttonWrapper > a:not(.disabled):hover {
+        background-color: #eef0f3 !important;
+    }
+}
+
+.theme-entry .SourceCode-Forms-Controls-Web-ControlPack-MultiChoice
+    .buttonWrapper > a:focus-visible {
+    outline: 2px solid var(--kc-input-focus) !important;
+    outline-offset: 1px !important;
 }
 
 @media (max-width: 480px) {
