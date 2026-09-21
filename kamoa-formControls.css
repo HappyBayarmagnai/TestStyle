@@ -326,3 +326,366 @@
         padding-inline: 16px !important;
     }
 }
+
+
+/* =========================================================
+   TEXT AREA
+   Boxed writing area. K2 shares its TextBox wrapper with Text Area,
+   so remove wrapper decoration and style the real textarea once.
+   ========================================================= */
+
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox:has(textarea),
+.theme-entry .SourceCode-Forms-Controls-Web-TextArea {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox:has(textarea)
+    .input-control.text-input,
+.theme-entry .SourceCode-Forms-Controls-Web-TextArea
+    .input-control.text-input {
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.theme-entry :is(
+    .SourceCode-Forms-Controls-Web-TextBox:has(textarea),
+    .SourceCode-Forms-Controls-Web-TextArea
+) textarea {
+    box-sizing: border-box !important;
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 112px !important;
+    padding: 12px 14px !important;
+
+    color: var(--kc-input-text) !important;
+    background: #ffffff !important;
+    border: 1px solid var(--kc-input-line) !important;
+    border-radius: 6px !important;
+    outline: 0 !important;
+
+    font-family: var(--kc-font-family) !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    resize: vertical !important;
+}
+
+.theme-entry :is(
+    .SourceCode-Forms-Controls-Web-TextBox:has(textarea),
+    .SourceCode-Forms-Controls-Web-TextArea
+) textarea::placeholder {
+    color: var(--kc-input-placeholder) !important;
+    opacity: 1 !important;
+}
+
+.theme-entry :is(
+    .SourceCode-Forms-Controls-Web-TextBox:has(textarea),
+    .SourceCode-Forms-Controls-Web-TextArea
+) textarea:focus {
+    border-color: var(--kc-input-focus) !important;
+    box-shadow: 0 0 0 3px rgb(238 48 71 / 14%) !important;
+}
+
+.theme-entry :is(
+    .SourceCode-Forms-Controls-Web-TextBox:has(textarea),
+    .SourceCode-Forms-Controls-Web-TextArea
+) textarea[readonly] {
+    color: #4d535b !important;
+    background: #fafafa !important;
+    border-style: dashed !important;
+}
+
+.theme-entry :is(
+    .SourceCode-Forms-Controls-Web-TextBox:has(textarea),
+    .SourceCode-Forms-Controls-Web-TextArea
+) textarea:disabled {
+    color: var(--kc-input-disabled-text) !important;
+    background: var(--kc-input-disabled-bg) !important;
+    border-color: #c9cdd3 !important;
+    cursor: not-allowed !important;
+    opacity: 1 !important;
+}
+
+.theme-entry :is(
+    .SourceCode-Forms-Controls-Web-TextBox:has(textarea),
+    .SourceCode-Forms-Controls-Web-TextArea
+) textarea[aria-invalid="true"] {
+    border-color: var(--kc-input-error) !important;
+}
+
+
+/* =========================================================
+   DROP-DOWN LIST
+   Underline treatment that keeps K2's arrow and event handling.
+   ========================================================= */
+
+.theme-entry .input-control.select-box {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 42px !important;
+    padding: 0 4px !important;
+
+    color: var(--kc-input-text) !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--kc-input-line) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    font-family: var(--kc-font-family) !important;
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+}
+
+.theme-entry .input-control.select-box select {
+    color: inherit !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    outline: 0 !important;
+    font: inherit !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .theme-entry .input-control.select-box:not(.disabled):not(.read-only):hover {
+        border-bottom-color: var(--kc-input-hover) !important;
+    }
+}
+
+.theme-entry .input-control.select-box:focus-within {
+    border-bottom: 2px solid var(--kc-input-focus) !important;
+    box-shadow: 0 2px 0 rgb(238 48 71 / 12%) !important;
+}
+
+.theme-entry .input-control.select-box:is(.read-only, .disabled),
+.theme-entry .input-control.select-box:has(select:disabled) {
+    color: var(--kc-input-disabled-text) !important;
+    background-color: var(--kc-input-disabled-bg) !important;
+    border-bottom-color: #c9cdd3 !important;
+    cursor: not-allowed !important;
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   CALENDAR, LOOKUP AND PICKER
+   K2 uses the .picker wrapper for these compound controls.
+   Keep K2's icon buttons and only style the field container.
+   ========================================================= */
+
+.theme-entry .picker {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 42px !important;
+    padding: 0 4px !important;
+
+    color: var(--kc-input-text) !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--kc-input-line) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    font-family: var(--kc-font-family) !important;
+    font-size: 16px !important;
+}
+
+.theme-entry .picker :is(input, .input-control.text-input) {
+    color: inherit !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    font: inherit !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .theme-entry .picker:not(.disabled):not(.read-only):hover {
+        border-bottom-color: var(--kc-input-hover) !important;
+    }
+}
+
+.theme-entry .picker:focus-within {
+    border-bottom: 2px solid var(--kc-input-focus) !important;
+    box-shadow: 0 2px 0 rgb(238 48 71 / 12%) !important;
+}
+
+.theme-entry .picker:is(.read-only, .disabled),
+.theme-entry .picker:has(input:disabled) {
+    color: var(--kc-input-disabled-text) !important;
+    background-color: var(--kc-input-disabled-bg) !important;
+    border-bottom-color: #c9cdd3 !important;
+    cursor: not-allowed !important;
+    opacity: 1 !important;
+}
+
+/* Keep calendar, lookup and picker action icons comfortably clickable. */
+.theme-entry .picker :is(
+    a,
+    button,
+    .picker-search,
+    .picker-resolve,
+    .calendar-control
+) {
+    min-width: 36px !important;
+    min-height: 36px !important;
+}
+
+
+/* =========================================================
+   LIST BOX
+   Bordered selection surface with clear selected and focus states.
+   ========================================================= */
+
+.theme-entry .SourceCode-Forms-Controls-Web-ListBox:has(select) {
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.theme-entry :is(
+    select[multiple],
+    .SourceCode-Forms-Controls-Web-ListBox:not(:has(select))
+) {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 136px !important;
+    padding: 6px !important;
+
+    color: var(--kc-input-text) !important;
+    background: #ffffff !important;
+    border: 1px solid var(--kc-input-line) !important;
+    border-radius: 6px !important;
+    outline: 0 !important;
+
+    font-family: var(--kc-font-family) !important;
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+}
+
+.theme-entry select[multiple] option {
+    min-height: 36px !important;
+    padding: 8px 10px !important;
+    border-radius: 4px !important;
+}
+
+.theme-entry select[multiple] option:checked {
+    color: #ffffff !important;
+    background: #ee3047 linear-gradient(#ee3047, #ee3047) !important;
+}
+
+.theme-entry :is(
+    select[multiple],
+    .SourceCode-Forms-Controls-Web-ListBox:not(:has(select))
+):focus-visible {
+    border-color: var(--kc-input-focus) !important;
+    box-shadow: 0 0 0 3px rgb(238 48 71 / 14%) !important;
+}
+
+.theme-entry select[multiple]:disabled {
+    color: var(--kc-input-disabled-text) !important;
+    background: var(--kc-input-disabled-bg) !important;
+    border-color: #c9cdd3 !important;
+    cursor: not-allowed !important;
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   MULTI-SELECT
+   Chip-style selected values. Selectors cover the standard K2 wrappers.
+   ========================================================= */
+
+.theme-entry :is(
+    .SourceCode-Forms-Controls-Web-MultiSelect,
+    .input-control.multi-select,
+    .multi-select-box
+) {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 44px !important;
+    padding: 5px 8px !important;
+
+    color: var(--kc-input-text) !important;
+    background: #ffffff !important;
+    border: 1px solid var(--kc-input-line) !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+
+    font-family: var(--kc-font-family) !important;
+    font-size: 15px !important;
+}
+
+.theme-entry :is(
+    .SourceCode-Forms-Controls-Web-MultiSelect,
+    .input-control.multi-select,
+    .multi-select-box
+):focus-within {
+    border-color: var(--kc-input-focus) !important;
+    box-shadow: 0 0 0 3px rgb(238 48 71 / 14%) !important;
+}
+
+/* Common K2 selected-item/token classes. */
+.theme-entry :is(
+    .SourceCode-Forms-Controls-Web-MultiSelect,
+    .input-control.multi-select,
+    .multi-select-box
+) :is(.selected-item, .token, .tag, .item.selected) {
+    display: inline-flex !important;
+    align-items: center !important;
+    min-height: 30px !important;
+    margin: 2px 4px 2px 0 !important;
+    padding: 4px 9px !important;
+    color: #222222 !important;
+    background: #eef0f3 !important;
+    border: 1px solid #d8dce1 !important;
+    border-radius: 999px !important;
+}
+
+.theme-entry :is(
+    .SourceCode-Forms-Controls-Web-MultiSelect,
+    .input-control.multi-select,
+    .multi-select-box
+):is(.disabled, .read-only),
+.theme-entry :is(
+    .SourceCode-Forms-Controls-Web-MultiSelect,
+    .input-control.multi-select,
+    .multi-select-box
+):has(:disabled) {
+    color: var(--kc-input-disabled-text) !important;
+    background: var(--kc-input-disabled-bg) !important;
+    border-color: #c9cdd3 !important;
+    cursor: not-allowed !important;
+    opacity: 1 !important;
+}
+
+@media (max-width: 480px) {
+    .theme-entry :is(
+        .input-control.select-box,
+        .picker,
+        .SourceCode-Forms-Controls-Web-MultiSelect,
+        .input-control.multi-select,
+        .multi-select-box
+    ) {
+        min-height: 44px !important;
+    }
+
+    .theme-entry :is(
+        .SourceCode-Forms-Controls-Web-TextBox:has(textarea),
+        .SourceCode-Forms-Controls-Web-TextArea
+    ) textarea {
+        min-height: 128px !important;
+    }
+}
