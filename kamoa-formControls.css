@@ -106,14 +106,6 @@
     font-style: italic;
 }
 
-/* Temporary Leave Request compatibility. Move this selector to the Leave
-   project stylesheet after its TOL_* controls use the standard names. */
-.theme-entry [layouttype="cell"]:has(input[name^="TOL_"]:disabled)
-    + [layouttype="cell"] > .SourceCode-Forms-Controls-Web-Label[name^="TOL_"] {
-    color: #636b76 !important;
-    font-style: italic;
-}
-
 /* 7. Hover and keyboard focus. Do not change input enablement. */
 @media (hover: hover) and (pointer: fine) {
     .theme-entry label.input-control.style-aware:is(.checkbox, .radio):not(.disabled):not(.read-only):has(> input:enabled):hover {
@@ -374,8 +366,15 @@
 
 .theme-entry .input-control.text-input:has(textarea)
     .input-control-watermark {
+    box-sizing: border-box !important;
+    top: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
     padding: 12px 14px !important;
     color: var(--kc-input-placeholder) !important;
+    line-height: 24px !important;
+    overflow: visible !important;
+    pointer-events: none !important;
 }
 
 .theme-entry .input-control.text-input:has(textarea):focus-within
@@ -571,4 +570,3 @@
         min-height: 128px !important;
     }
 }
-
