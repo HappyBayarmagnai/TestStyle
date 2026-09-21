@@ -397,64 +397,58 @@
     box-shadow: none !important;
 }
 
-/* Drop-Down: use K2's existing two inner underline segments, not the root. */
+/* Drop-Down: one full-width underline on the root control. */
 .theme-entry .input-control.select-box.dropdown-box {
     padding: 0 !important;
     border: 0 !important;
+    border-bottom: 1px solid var(--kc-input-line) !important;
     box-shadow: none !important;
 }
 
 .theme-entry .input-control.select-box.dropdown-box
-    > .styling-outer-wrapper > .input-control-body,
+    :is(.input-control-body, .input-control-m-c),
 .theme-entry .input-control.select-box.dropdown-box
     .input-control-buttons {
-    border-bottom: 1px solid var(--kc-input-line) !important;
+    border-bottom: 0 !important;
 }
 
-.theme-entry .input-control.select-box.dropdown-box:focus-within
-    > .styling-outer-wrapper > .input-control-body,
-.theme-entry .input-control.select-box.dropdown-box:focus-within
-    .input-control-buttons {
+.theme-entry .input-control.select-box.dropdown-box:focus-within {
     border-bottom: 2px solid var(--kc-input-focus) !important;
+    box-shadow: 0 2px 0 rgb(238 48 71 / 12%) !important;
 }
 
-.theme-entry .input-control.select-box.dropdown-box:is(.disabled, .read-only)
-    > .styling-outer-wrapper > .input-control-body,
-.theme-entry .input-control.select-box.dropdown-box:is(.disabled, .read-only)
-    .input-control-buttons {
+.theme-entry .input-control.select-box.dropdown-box:is(.disabled, .read-only) {
     background: var(--kc-input-disabled-bg) !important;
     border-bottom-color: #c9cdd3 !important;
+    box-shadow: none !important;
 }
 
 /* Calendar and lookup controls are lookup-box/select-box compounds. */
 .theme-entry .input-control.select-box.lookup-box {
     padding: 0 !important;
     border: 0 !important;
+    border-bottom: 1px solid var(--kc-input-line) !important;
     box-shadow: none !important;
 }
 
 .theme-entry .input-control.select-box.lookup-box
-    .input-control-m-c,
+    :is(.input-control-body, .input-control-m-c),
 .theme-entry .input-control.select-box.lookup-box
     .input-control-buttons {
-    border-bottom: 1px solid var(--kc-input-line) !important;
+    border-bottom: 0 !important;
 }
 
-.theme-entry .input-control.select-box.lookup-box:focus-within
-    .input-control-m-c,
-.theme-entry .input-control.select-box.lookup-box:focus-within
-    .input-control-buttons {
+.theme-entry .input-control.select-box.lookup-box:focus-within {
     border-bottom: 2px solid var(--kc-input-focus) !important;
+    box-shadow: 0 2px 0 rgb(238 48 71 / 12%) !important;
 }
 
 .theme-entry .input-control.select-box.lookup-box:is(
     .disabled, .read-only, .ui-lookupbox-disabled
-) .input-control-m-c,
-.theme-entry .input-control.select-box.lookup-box:is(
-    .disabled, .read-only, .ui-lookupbox-disabled
-) .input-control-buttons {
+) {
     background: var(--kc-input-disabled-bg) !important;
     border-bottom-color: #c9cdd3 !important;
+    box-shadow: none !important;
 }
 
 /* Picker owns a lookup-box internally; the outer picker must not draw a line. */
