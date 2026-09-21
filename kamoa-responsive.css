@@ -31,11 +31,15 @@
    outside it. Use normal flow only when our shell is present. */
 @media screen {
     html:has(> body.theme-entry > .kcjs-header[data-kamoa-owned="header"]) {
+        position: static !important;
+        inset: auto !important;
         height: auto !important;
         min-height: 100%;
         overflow-y: auto !important;
     }
     body.theme-entry:has(> .kcjs-header[data-kamoa-owned="header"]) {
+        position: static !important;
+        inset: auto !important;
         height: auto !important;
         min-height: 100vh;
         overflow: visible !important;
