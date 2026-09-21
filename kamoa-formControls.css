@@ -467,10 +467,20 @@
 }
 
 .theme-entry .SourceCode-Forms-Controls-Web-ControlPack-ListBox
-    .listBoxSelect {
+    > .stylewrapper {
+    box-sizing: border-box !important;
+    width: 100% !important;
     background: #ffffff !important;
     border: 1px solid var(--kc-input-line) !important;
     border-radius: 6px !important;
+    overflow: hidden !important;
+}
+
+.theme-entry .SourceCode-Forms-Controls-Web-ControlPack-ListBox
+    .listBoxSelect {
+    background: #ffffff !important;
+    border: 0 !important;
+    border-radius: 0 !important;
     overflow: hidden !important;
 }
 
@@ -496,7 +506,7 @@
 }
 
 .theme-entry .SourceCode-Forms-Controls-Web-ControlPack-ListBox:focus-within
-    .listBoxSelect {
+    > .stylewrapper {
     border-color: var(--kc-input-focus) !important;
     box-shadow: 0 0 0 3px rgb(238 48 71 / 14%) !important;
 }
