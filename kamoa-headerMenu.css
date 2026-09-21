@@ -47,7 +47,6 @@
     outline-offset: 2px;
 }
 
-
 /* =========================================================
    CUSTOM SECTION HEADERS
    Cell naming: KcCellHeader_Project_Number
@@ -61,10 +60,11 @@
 
     width: 100% !important;
     min-width: 0 !important;
-    min-height: 52px !important;
+    min-height: 36px !important;
 
-    margin: 16px 0 20px !important;
-    padding: clamp(12px, 2vw, 16px) clamp(14px, 2.5vw, 20px) !important;
+    margin: 10px 0 14px !important;
+    padding: 8px 16px !important;
+   //padding: clamp(12px, 2vw, 16px) clamp(14px, 2.5vw, 20px) !important;
 
     background: #333333 !important;
     color: #ffffff !important;
