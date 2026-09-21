@@ -3,6 +3,17 @@
    Existing K2 inputs, validation and click rules remain in control.
 */
 
+.theme-entry {
+    --kc-input-text: #222222;
+    --kc-input-placeholder: #8a8f98;
+    --kc-input-line: #9ca3ad;
+    --kc-input-hover: #555c66;
+    --kc-input-focus: #ee3047;
+    --kc-input-disabled-bg: #f2f3f5;
+    --kc-input-disabled-text: #8a8f98;
+    --kc-input-error: #c71920;
+}
+
 /* 1. Palette and icon size. Scope to K2's inspected SVG wrappers. */
 .theme-entry label.input-control.style-aware:is(.checkbox, .radio) {
     --kc-choice-size: 22px;
@@ -144,21 +155,12 @@
    Base appearance and interaction states
    ========================================================= */
 
-.theme-entry {
-    --kc-input-text: #222222;
-    --kc-input-placeholder: #8a8f98;
-    --kc-input-line: #9ca3ad;
-    --kc-input-hover: #555c66;
-    --kc-input-focus: #ee3047;
-    --kc-input-disabled-bg: #f2f3f5;
-    --kc-input-disabled-text: #8a8f98;
-    --kc-input-error: #c71920;
-}
+
 
 /* Text box outer control.
    Do not target the generic .input-control.text-input wrapper here because
    K2 also uses it inside Text Area controls, which creates two underlines. */
-.theme-entry .SourceCode-Forms-Controls-Web-TextBox {
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox:not(:has(textarea)) {
     box-sizing: border-box !important;
     width: 100% !important;
     min-height: 42px !important;
@@ -183,7 +185,7 @@
 }
 
 /* Actual input inside the K2 wrapper */
-.theme-entry .SourceCode-Forms-Controls-Web-TextBox input {
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox:not(:has(textarea)) input {
     box-sizing: border-box !important;
     width: 100% !important;
     min-width: 0 !important;
@@ -197,7 +199,7 @@
 }
 
 /* Placeholder */
-.theme-entry .SourceCode-Forms-Controls-Web-TextBox input::placeholder {
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox:not(:has(textarea)) input::placeholder {
     color: var(--kc-input-placeholder) !important;
     opacity: 1 !important;
 }
@@ -205,27 +207,27 @@
 /* Hover */
 @media (hover: hover) and (pointer: fine) {
     .theme-entry
-        .SourceCode-Forms-Controls-Web-TextBox:not(.disabled):not(.read-only):hover {
+        .SourceCode-Forms-Controls-Web-TextBox:not(:has(textarea)):not(.disabled):not(.read-only):hover {
         border-bottom-color: var(--kc-input-hover) !important;
     }
 }
 
 /* Keyboard or mouse focus */
-.theme-entry .SourceCode-Forms-Controls-Web-TextBox:focus-within {
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox:not(:has(textarea)):focus-within {
     border-bottom: 2px solid var(--kc-input-focus) !important;
     box-shadow: 0 2px 0 rgb(238 48 71 / 12%) !important;
 }
 
 /* Read-only */
-.theme-entry .SourceCode-Forms-Controls-Web-TextBox.read-only {
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox:not(:has(textarea)).read-only {
     color: #4d535b !important;
     background: #fafafa !important;
     border-bottom-style: dashed !important;
 }
 
 /* Disabled */
-.theme-entry .SourceCode-Forms-Controls-Web-TextBox.disabled,
-.theme-entry .SourceCode-Forms-Controls-Web-TextBox:has(input:disabled) {
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox:not(:has(textarea)).disabled,
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox:not(:has(textarea)):has(input:disabled) {
     color: var(--kc-input-disabled-text) !important;
     background: var(--kc-input-disabled-bg) !important;
     border-bottom-color: #c9cdd3 !important;
@@ -234,8 +236,8 @@
 }
 
 /* Invalid or required validation state */
-.theme-entry .SourceCode-Forms-Controls-Web-TextBox.invalid,
-.theme-entry .SourceCode-Forms-Controls-Web-TextBox.error {
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox:not(:has(textarea)).invalid,
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox:not(:has(textarea)).error {
     border-bottom: 2px solid var(--kc-input-error) !important;
 }
 
