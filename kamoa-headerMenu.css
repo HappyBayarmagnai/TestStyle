@@ -90,6 +90,7 @@
     background: transparent !important;
 
     font: inherit !important;
+    text-transform: uppercase !important;
     white-space: normal !important;
     overflow-wrap: anywhere !important;
 }
