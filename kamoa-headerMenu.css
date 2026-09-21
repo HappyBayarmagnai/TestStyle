@@ -72,8 +72,9 @@
     border-left: 4px solid #ee3047 !important;
 
     font-family: var(--kc-font-family) !important;
-    font-size: 18px !important;
+    font-size: 20px !important;
     font-weight: 500 !important;
+    font-style: uppercase !important;
     line-height: 1.3 !important;
 
     white-space: normal !important;
