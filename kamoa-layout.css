@@ -5,7 +5,8 @@
 /* 1. Page background */
 html .theme-entry {
     --page-background-color: #ffffff;
-    background-color: #ffffff !important;
+    --kc-font-family: "Segoe UI", Arial, sans-serif;
+    background-color: var(--page-background-color) !important;
 }
 /* Per-form title source. Keep the K2 Data Label Visible so JavaScript can
    read it; this rule hides only the source control from the runtime page. */
@@ -40,14 +41,14 @@ html .theme-entry {
 .theme-entry .kcjs-brand__name {
     display: block;
     color: #ee3047;
-    font: 800 24px/1 "Segoe UI", Arial, sans-serif;
+    font: 800 24px/1 var(--kc-font-family);
     letter-spacing: 0.025em;
 }
 .theme-entry .kcjs-brand__subtitle {
     display: block;
     margin-top: 5px;
     color: #ffffff;
-    font: 600 10px/1.3 "Segoe UI", Arial, sans-serif;
+    font: 600 10px/1.3 var(--kc-font-family);
     letter-spacing: 0.1em;
 }
 .theme-entry .kcjs-brand__image {
@@ -63,7 +64,7 @@ html .theme-entry {
     min-width: 0;
     margin: 0;
     color: #ffffff;
-    font: 600 20px/1.35 "Segoe UI", Arial, sans-serif;
+    font: 600 20px/1.35 var(--kc-font-family);
     text-align: center;
     white-space: normal;
     overflow-wrap: anywhere;
@@ -119,13 +120,13 @@ html .theme-entry {
     margin: 0;
     padding: 0;
     color: #ffffff;
-    font: 600 20px/1.4 "Segoe UI", Arial, sans-serif;
+    font: 600 20px/1.4 var(--kc-font-family);
 }
 .theme-entry .kcjs-help__body { padding: 24px; }
 .theme-entry .kcjs-help__text {
     margin: 0 0 20px;
     color: #333333;
-    font: 400 15px/1.65 "Segoe UI", Arial, sans-serif;
+    font: 400 15px/1.65 var(--kc-font-family);
     white-space: pre-line;
     overflow-wrap: anywhere;
 }
@@ -137,7 +138,7 @@ html .theme-entry {
     border-radius: 5px;
     background: #b91d32;
     color: #ffffff;
-    font: 600 14px/1.5 "Segoe UI", Arial, sans-serif;
+    font: 600 14px/1.5 var(--kc-font-family);
     cursor: pointer;
 }
 .theme-entry :is(.kcjs-info, .kcjs-help__close):focus-visible {
@@ -169,7 +170,7 @@ html .theme-entry {
     border: 0 !important;
     border-left: 4px solid #ee3047 !important;
 
-    font-family: "Segoe UI", Arial, sans-serif !important;
+    font-family: var(--kc-font-family) !important;
     font-size: 18px !important;
     font-weight: 500 !important;
     line-height: 1.3 !important;
@@ -208,7 +209,7 @@ html .theme-entry {
     margin: 0 auto;
     padding: 12px 24px;
     color: #5b5b64;
-    font: 400 12px/1.5 "Segoe UI", Arial, sans-serif;
+    font: 400 12px/1.5 var(--kc-font-family);
     text-align: right;
     overflow-wrap: anywhere;
 }
