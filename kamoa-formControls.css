@@ -136,3 +136,198 @@
         outline-color: Highlight;
     }
 }
+
+
+
+/* =========================================================
+   TEXT BOX
+   Base appearance and interaction states
+   ========================================================= */
+
+.theme-entry {
+    --kc-input-text: #222222;
+    --kc-input-placeholder: #8a8f98;
+    --kc-input-line: #9ca3ad;
+    --kc-input-hover: #555c66;
+    --kc-input-focus: #ee3047;
+    --kc-input-disabled-bg: #f2f3f5;
+    --kc-input-disabled-text: #8a8f98;
+    --kc-input-error: #c71920;
+}
+
+/* Text box outer control */
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox,
+.theme-entry .input-control.text-input {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-height: 42px !important;
+
+    padding: 8px 4px !important;
+
+    color: var(--kc-input-text) !important;
+    background: transparent !important;
+
+    border: 0 !important;
+    border-bottom: 1px solid var(--kc-input-line) !important;
+    border-radius: 0 !important;
+
+    font-family: var(--kc-font-family) !important;
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease,
+        background-color 160ms ease !important;
+}
+
+/* Actual input inside the K2 wrapper */
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox input,
+.theme-entry .input-control.text-input input {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+
+    color: inherit !important;
+    background: transparent !important;
+    border: 0 !important;
+    outline: 0 !important;
+
+    font: inherit !important;
+}
+
+/* Placeholder */
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox input::placeholder,
+.theme-entry .input-control.text-input input::placeholder {
+    color: var(--kc-input-placeholder) !important;
+    opacity: 1 !important;
+}
+
+/* Hover */
+@media (hover: hover) and (pointer: fine) {
+    .theme-entry
+        .SourceCode-Forms-Controls-Web-TextBox:not(.disabled):not(.read-only):hover,
+    .theme-entry
+        .input-control.text-input:not(.disabled):not(.read-only):hover {
+        border-bottom-color: var(--kc-input-hover) !important;
+    }
+}
+
+/* Keyboard or mouse focus */
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox:focus-within,
+.theme-entry .input-control.text-input:focus-within {
+    border-bottom: 2px solid var(--kc-input-focus) !important;
+    box-shadow: 0 2px 0 rgb(238 48 71 / 12%) !important;
+}
+
+/* Read-only */
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox.read-only,
+.theme-entry .input-control.text-input.read-only {
+    color: #4d535b !important;
+    background: #fafafa !important;
+    border-bottom-style: dashed !important;
+}
+
+/* Disabled */
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox.disabled,
+.theme-entry .input-control.text-input.disabled,
+.theme-entry .input-control.text-input:has(input:disabled) {
+    color: var(--kc-input-disabled-text) !important;
+    background: var(--kc-input-disabled-bg) !important;
+    border-bottom-color: #c9cdd3 !important;
+    cursor: not-allowed !important;
+    opacity: 1 !important;
+}
+
+/* Invalid or required validation state */
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox.invalid,
+.theme-entry .input-control.text-input.invalid,
+.theme-entry .input-control.text-input.error {
+    border-bottom: 2px solid var(--kc-input-error) !important;
+}
+
+
+/* =========================================================
+   BUTTONS
+   Keep K2's Normal, Main, Quiet and Destructive colors.
+   This section standardizes only shape, spacing and states.
+   ========================================================= */
+
+.theme-entry {
+    --kc-button-height: 40px;
+    --kc-button-radius: 6px;
+    --kc-button-padding-x: 18px;
+}
+
+/* Shared base for every K2 button style. */
+.theme-entry .SourceCode-Forms-Controls-Web-Button {
+    box-sizing: border-box !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: auto !important;
+    min-width: 96px !important;
+    min-height: var(--kc-button-height) !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 9px var(--kc-button-padding-x) !important;
+
+    border-radius: var(--kc-button-radius) !important;
+    box-shadow: none !important;
+
+    font-family: var(--kc-font-family) !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    line-height: 1.35 !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    white-space: normal !important;
+
+    transition:
+        box-shadow 150ms ease,
+        filter 150ms ease,
+        transform 80ms ease !important;
+}
+
+.theme-entry .SourceCode-Forms-Controls-Web-Button > span {
+    color: inherit !important;
+    font: inherit !important;
+    line-height: inherit !important;
+}
+
+/* Hover keeps each K2 button's original background and text colors. */
+@media (hover: hover) and (pointer: fine) {
+    .theme-entry .SourceCode-Forms-Controls-Web-Button:not(.disabled):not([aria-disabled="true"]):hover {
+        filter: brightness(0.96) !important;
+        box-shadow: 0 2px 6px rgb(0 0 0 / 16%) !important;
+    }
+}
+
+/* Clear keyboard focus without replacing the button's K2 colors. */
+.theme-entry .SourceCode-Forms-Controls-Web-Button:focus-visible {
+    outline: 2px solid #222222 !important;
+    outline-offset: 2px !important;
+}
+
+.theme-entry .SourceCode-Forms-Controls-Web-Button:not(.disabled):not([aria-disabled="true"]):active {
+    transform: translateY(1px) !important;
+    box-shadow: none !important;
+}
+
+/* Disabled buttons remain recognizable but clearly unavailable. */
+.theme-entry .SourceCode-Forms-Controls-Web-Button:is(.disabled, [aria-disabled="true"]),
+.theme-entry .SourceCode-Forms-Controls-Web-Button:has(input:disabled) {
+    cursor: not-allowed !important;
+    filter: grayscale(20%) !important;
+    opacity: 0.65 !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+@media (max-width: 480px) {
+    .theme-entry .SourceCode-Forms-Controls-Web-Button {
+        min-height: 44px !important;
+        padding-inline: 16px !important;
+    }
+}
