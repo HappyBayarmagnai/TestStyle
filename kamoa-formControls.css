@@ -155,9 +155,10 @@
     --kc-input-error: #c71920;
 }
 
-/* Text box outer control */
-.theme-entry .SourceCode-Forms-Controls-Web-TextBox,
-.theme-entry .input-control.text-input {
+/* Text box outer control.
+   Do not target the generic .input-control.text-input wrapper here because
+   K2 also uses it inside Text Area controls, which creates two underlines. */
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox {
     box-sizing: border-box !important;
     width: 100% !important;
     min-height: 42px !important;
@@ -182,8 +183,7 @@
 }
 
 /* Actual input inside the K2 wrapper */
-.theme-entry .SourceCode-Forms-Controls-Web-TextBox input,
-.theme-entry .input-control.text-input input {
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox input {
     box-sizing: border-box !important;
     width: 100% !important;
     min-width: 0 !important;
@@ -197,8 +197,7 @@
 }
 
 /* Placeholder */
-.theme-entry .SourceCode-Forms-Controls-Web-TextBox input::placeholder,
-.theme-entry .input-control.text-input input::placeholder {
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox input::placeholder {
     color: var(--kc-input-placeholder) !important;
     opacity: 1 !important;
 }
@@ -206,23 +205,19 @@
 /* Hover */
 @media (hover: hover) and (pointer: fine) {
     .theme-entry
-        .SourceCode-Forms-Controls-Web-TextBox:not(.disabled):not(.read-only):hover,
-    .theme-entry
-        .input-control.text-input:not(.disabled):not(.read-only):hover {
+        .SourceCode-Forms-Controls-Web-TextBox:not(.disabled):not(.read-only):hover {
         border-bottom-color: var(--kc-input-hover) !important;
     }
 }
 
 /* Keyboard or mouse focus */
-.theme-entry .SourceCode-Forms-Controls-Web-TextBox:focus-within,
-.theme-entry .input-control.text-input:focus-within {
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox:focus-within {
     border-bottom: 2px solid var(--kc-input-focus) !important;
     box-shadow: 0 2px 0 rgb(238 48 71 / 12%) !important;
 }
 
 /* Read-only */
-.theme-entry .SourceCode-Forms-Controls-Web-TextBox.read-only,
-.theme-entry .input-control.text-input.read-only {
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox.read-only {
     color: #4d535b !important;
     background: #fafafa !important;
     border-bottom-style: dashed !important;
@@ -230,8 +225,7 @@
 
 /* Disabled */
 .theme-entry .SourceCode-Forms-Controls-Web-TextBox.disabled,
-.theme-entry .input-control.text-input.disabled,
-.theme-entry .input-control.text-input:has(input:disabled) {
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox:has(input:disabled) {
     color: var(--kc-input-disabled-text) !important;
     background: var(--kc-input-disabled-bg) !important;
     border-bottom-color: #c9cdd3 !important;
@@ -241,8 +235,7 @@
 
 /* Invalid or required validation state */
 .theme-entry .SourceCode-Forms-Controls-Web-TextBox.invalid,
-.theme-entry .input-control.text-input.invalid,
-.theme-entry .input-control.text-input.error {
+.theme-entry .SourceCode-Forms-Controls-Web-TextBox.error {
     border-bottom: 2px solid var(--kc-input-error) !important;
 }
 
