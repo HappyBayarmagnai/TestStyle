@@ -491,7 +491,6 @@
     color: var(--kc-input-text) !important;
     background-color: transparent !important;
     border: 0 !important;
-    border-bottom: 1px solid var(--kc-input-line) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
 
@@ -499,9 +498,25 @@
     font-size: 16px !important;
 }
 
-.theme-entry .picker :is(input, .input-control.text-input) {
+.theme-entry .picker .input-control.text-input,
+.theme-entry .picker > input {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 42px !important;
     color: inherit !important;
     background-color: transparent !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--kc-input-line) !important;
+    border-radius: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    font: inherit !important;
+}
+
+.theme-entry .picker .input-control.text-input input {
+    color: inherit !important;
+    background: transparent !important;
     border: 0 !important;
     outline: 0 !important;
     box-shadow: none !important;
@@ -510,11 +525,23 @@
 
 @media (hover: hover) and (pointer: fine) {
     .theme-entry .picker:not(.disabled):not(.read-only):hover {
+        border-bottom-color: transparent !important;
+    }
+
+    .theme-entry .picker:not(.disabled):not(.read-only):hover
+        .input-control.text-input,
+    .theme-entry .picker:not(.disabled):not(.read-only):hover > input {
         border-bottom-color: var(--kc-input-hover) !important;
     }
 }
 
 .theme-entry .picker:focus-within {
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.theme-entry .picker:focus-within .input-control.text-input,
+.theme-entry .picker:focus-within > input {
     border-bottom: 2px solid var(--kc-input-focus) !important;
     box-shadow: 0 2px 0 rgb(238 48 71 / 12%) !important;
 }
@@ -523,9 +550,14 @@
 .theme-entry .picker:has(input:disabled) {
     color: var(--kc-input-disabled-text) !important;
     background-color: var(--kc-input-disabled-bg) !important;
-    border-bottom-color: #c9cdd3 !important;
     cursor: not-allowed !important;
     opacity: 1 !important;
+}
+
+.theme-entry .picker:is(.read-only, .disabled) .input-control.text-input,
+.theme-entry .picker:has(input:disabled) .input-control.text-input,
+.theme-entry .picker > input:disabled {
+    border-bottom-color: #c9cdd3 !important;
 }
 
 /* Keep calendar, lookup and picker action icons comfortably clickable. */
